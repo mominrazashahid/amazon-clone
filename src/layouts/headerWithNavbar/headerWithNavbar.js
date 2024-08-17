@@ -1,13 +1,16 @@
-import { Header } from 'antd/lib/layout/layout';
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
+import Header from '../../components/header/Header';
 
-const HeaderWithNavbar = ({ children }) => (
-  <div>
-    <Header />
-    <Navbar />
-    <main>{children}</main>
-  </div>
-);
+function HeaderWithNavbar ({ children }) {
+
+  return (
+    <div>
+      <Header />
+      <Navbar />
+      <main>{children}</main>
+    </div>
+  );
+};
 
 export default HeaderWithNavbar;

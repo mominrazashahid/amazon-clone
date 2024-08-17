@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -12,15 +12,14 @@ import Payment from '../components/payment/Payment';
 import Login from '../pages/login/Login';
 import Signup from '../pages/signup/Signup';
 import Checkout from '../components/checkOut/Checkout';
-import Navbar from '../components/navbar/Navbar';
 import BookToys from '../Categories/BooksToys/BookToys';
 import HeaderWithNavbar from '../layouts/headerWithNavbar/headerWithNavbar';
 import FashionBeauty from '../Categories/FashionBeauty/FashionBeauty';
 import Electronics from '../Categories/Electronics/Electronics';
-import { Home } from '@material-ui/icons';
 import { useStateValue } from '../context/StateProvider';
 import { auth } from '../firebase';
 import { Footer } from 'antd/lib/layout/layout';
+import HeaderHomeLayout from '../layouts/headerWithNavbar/headerHomeLayout';
 
 const stripePromise = loadStripe(
   'pk_test_51JdCsbSDjgMnau9ncKpDOaddNIWtdhVTTV92V4ShkTzLec033vWcRQjqEUByb1s4D6vmPmH6oMK0bkBJyBlRsStp00wQV1pNuX'
@@ -30,13 +29,7 @@ function AppRoutes() {
 
 //to keep a check who is signed in/making a listner
 const [{}, dispatch] = useStateValue();
-//This State will keep Track of what is entered in the searchField
-const [searchField, setSearchField] = useState('');
 
-//updating the State from Header Component which further updating itself from HeaderSearchBar.js
-let inputHandler = (event) => {
-  setSearchField(event.target.value);
-};
 useEffect(() => {
   //will run only once when the app component loads
   auth.onAuthStateChanged((authUser) => {
@@ -102,7 +95,6 @@ useEffect(() => {
           element={
             <>
                <HeaderWithNavbar>  <BookToys /></HeaderWithNavbar> 
-             
             </>
           }
         />
@@ -124,10 +116,7 @@ useEffect(() => {
           path="/"
           element={
             <>
-              <Header inputHandler={inputHandler} />
-              <Navbar />
-              <Home text={searchField} />
-              <AllCategories />
+             <HeaderHomeLayout> <AllCategories /></HeaderHomeLayout>
             </>
           }
         />
